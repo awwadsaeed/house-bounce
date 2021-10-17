@@ -44,7 +44,6 @@ export default function UserContext(props) {
     }
   };
 
-
   //--- sending sign in request to back end ---//
   const login = async (email, password) => {
     try {
@@ -64,36 +63,57 @@ export default function UserContext(props) {
       const result = await superagent
         .get(`${baseURL}/req/read`)
         .set("authorization", `Bearer ${token}`);
-        return(result.body.houses);
+      return result.body.houses;
     } catch (e) {
       console.log(e.message);
     }
   };
 
-
   //--- sending sign up request to the back end ---//
-  const signup = async(email,password,firstName,lastName,role)=>{
-      try{
-          const userData = {
-              email,
-              password,
-              firstName,
-              lastName,
-              role,
-              houses:[]
-          };
-          const result = await superagent.post(`${baseURL}/auth/signup`,userData);
-          console.log(result.body);
-      }catch(e){
-          console.log(e.message);
-      }
-  }
+  const signup = async (email, password, firstName, lastName, role) => {
+    try {
+      const userData = {
+        email,
+        password,
+        firstName,
+        lastName,
+        role,
+        houses: [],
+      };
+      const result = await superagent.post(`${baseURL}/auth/signup`, userData);
+      console.log(result.body);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
-
+  //--- creating the house request ---//
+  const createHouseReq = async (
+    type,
+    address,
+    description,
+    price,
+    negotiable
+  ) => {
+    const token = cookie.load("Auth");
+    const data = {
+        type,
+        address,
+        description,
+        price,
+        negotiable,
+    };
+    const result = await superagent
+      .post(`${baseURL}/req/create`, data )
+      .set("authorization", `Bearer ${token}`);
+    console.log(result.body);
+  };
+  //--- creating the context state object ---//
   const state = {
     login,
     signup,
-    user
+    createHouseReq,
+    user,
   };
 
   return (
