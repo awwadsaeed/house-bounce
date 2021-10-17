@@ -107,12 +107,60 @@ export default function UserContext(props) {
       .post(`${baseURL}/req/create`, data )
       .set("authorization", `Bearer ${token}`);
     console.log(result.body);
+    setUser({
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      houses: result.body.houses,
+    });
   };
+//----updating the price ----//
+  const updatePrice = async(houseID,price)=>{
+    const token = cookie.load("Auth");
+    const newPrice = `${price} JD`;
+    const data ={ houseID, newPrice }
+    const result = await superagent
+    .put(`${baseURL}/req/updatePrice`, data )
+    .set("authorization", `Bearer ${token}`);
+    setUser({
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      houses: result.body.houses,
+    });
+  }
+
+
+
+  //----delete request----//
+  const deleteHouse = async (id,email)=>{
+  
+    const token = cookie.load("Auth");
+    const data = {
+      houseID:id,
+      ownerEmail:email
+    }
+    const result = await superagent
+    .delete(`${baseURL}/req/delete`, data )
+    .set("authorization", `Bearer ${token}`);
+    console.log(result.body);
+    setUser({
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      houses: result.body.houses,
+    });
+  }
   //--- creating the context state object ---//
   const state = {
     login,
     signup,
     createHouseReq,
+    updatePrice,
+    deleteHouse,
     user,
   };
 
