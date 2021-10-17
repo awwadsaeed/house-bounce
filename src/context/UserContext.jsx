@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import cookie from "react-cookies";
 
 export const userContext = createContext();
-const baseURL = "http://localhost:5000/";
+const baseURL = "http://localhost:5000";
 export default function UserContext(props) {
   const [user, setUser] = useState({
     email: "",
@@ -18,7 +18,7 @@ export default function UserContext(props) {
   const [loggedin, setLoggedin] = useState(false);
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
     console.log(loggedin);
   }, [loggedin]);
 
@@ -50,7 +50,7 @@ export default function UserContext(props) {
     try {
       const encodedString = base64.encode(`${email}:${password}`);
       const result = await superagent
-        .post(`${baseURL}auth/signin`)
+        .post(`${baseURL}/auth/signin`)
         .set("authorization", `Basic ${encodedString}`);
       validateToken(result.body.token);
     } catch (e) {
@@ -62,7 +62,7 @@ export default function UserContext(props) {
   const getHouses = async (token) => {
     try {
       const result = await superagent
-        .get(`${baseURL}req/read`)
+        .get(`${baseURL}/req/read`)
         .set("authorization", `Bearer ${token}`);
         return(result.body.houses);
     } catch (e) {
@@ -70,8 +70,30 @@ export default function UserContext(props) {
     }
   };
 
+
+  //--- sending sign up request to the back end ---//
+  const signup = async(email,password,firstName,lastName,role)=>{
+      try{
+          const userData = {
+              email,
+              password,
+              firstName,
+              lastName,
+              role,
+              houses:[]
+          };
+          const result = await superagent.post(`${baseURL}/auth/signup`,userData);
+          console.log(result.body);
+      }catch(e){
+          console.log(e.message);
+      }
+  }
+
+
   const state = {
     login,
+    signup,
+    user
   };
 
   return (
