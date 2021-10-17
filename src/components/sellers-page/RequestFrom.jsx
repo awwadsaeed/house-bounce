@@ -52,7 +52,7 @@ export default function RequestFrom() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const address = `${city} - ${street}`;
-        const finalPrice = `${price}$`
+        const finalPrice = `${price} JD`
         context.createHouseReq(type,address,description,finalPrice,negotiable);
     }
 
@@ -74,7 +74,7 @@ export default function RequestFrom() {
         id="standard-required"
         label="City"
         placeholder="City"
-        variant="standard"
+        variant="outlined"
         id="custom-css-outlined-input"
         //   variant="outlined"
         onChange={(e) => {
@@ -86,7 +86,7 @@ export default function RequestFrom() {
         id="standard-required"
         label="Street"
         placeholder="Street"
-        variant="standard"
+        variant="outlined"
         onChange={(e) => {
           setStreet(e.target.value);
         }}
@@ -98,7 +98,7 @@ export default function RequestFrom() {
         minRows={4}
         label="description"
         placeholder="How many rooms, View etc..."
-        variant="standard"
+        variant="outlined"
         onChange={(e) => {
           setDescription(e.target.value);
         }}
@@ -109,7 +109,7 @@ export default function RequestFrom() {
         id="standard-password-input"
         label="Price"
         placeholder="Price"
-        variant="standard"
+        variant="outlined"
         onChange={(e) => {
           setPrice(e.target.value);
         }}
@@ -144,7 +144,7 @@ export default function RequestFrom() {
         label="Negotiable"
         labelPlacement="end"
       />
-      <Button type="submit">Login</Button>
+      <Button color="success" variant="contained" type="submit">Send Request</Button>
     </Box>
   );
 }

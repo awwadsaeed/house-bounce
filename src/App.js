@@ -1,12 +1,12 @@
 import './App.css';
 import Login from './components/signin-page/LoginForm';
 import Signup from './components/signup-page/SignupForm';
-import RequestFrom from './components/sellers-page/RequestFrom';
+import SellerPage from './components/sellers-page/SellerPage';
 function App() {
   return (<>
     <Login/>
     {/* <Signup/> */}
-    <RequestFrom/>
+    <SellerPage/>
     </>
   );
 }
