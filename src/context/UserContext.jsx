@@ -22,11 +22,9 @@ export default function UserContext(props) {
     pending: 0,
   });
   useEffect(() => {
-    // console.log(user.role);
-    if (user.role == "admin") {
-      console.log(chartStats);
-    }
-  }, [chartStats]);
+    const token = cookie.load('Auth');
+    validateToken(token);
+  }, []);
 
   //--- we validate token after recieving it from back end, save it in the coockies, get the houses of this user and set the user and logged in states ---//
 
@@ -34,6 +32,12 @@ export default function UserContext(props) {
     try {
       const userData = jwt.decode(token);
       if (userData) {
+        setUser({
+          email: userData.email,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          role: userData.role,
+        });
         cookie.save("Auth", token);
         const result = await getHouses(token);
         setUser({
@@ -184,6 +188,17 @@ export default function UserContext(props) {
     setChartStats(result.body.stats);
     console.log(result.body);
   };
+
+
+  //----log out function ----//
+  const logOut = ()=>{
+    cookie.save('Auth',null);
+    setUser({});
+    setLoggedin(false);
+  }
+
+
+
   //--- creating the context state object ---//
   const state = {
     login,
@@ -192,8 +207,10 @@ export default function UserContext(props) {
     updatePrice,
     deleteHouse,
     updateStatus,
+    logOut,
     user,
     chartStats,
+    loggedin
   };
 
   return (
