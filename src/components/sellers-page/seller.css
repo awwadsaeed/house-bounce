@@ -1,0 +1,60 @@
+.create {
+  border-radius: 5px;
+  position: fixed;
+  right: 10%;
+  padding-left: 2%;
+  padding-right: 2%;
+  height: 600px;
+  border: 1px solid #144273;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 30%;
+  box-sizing: border-box;
+}
+
+.create button {
+  width: 97%;
+  margin-left: 1.4%;
+  height: 50px;
+  margin-top: 2%;
+}
+.create .title {
+  color: #144273;
+  margin-top: 3%;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 25px;
+  font-weight: bold;
+}
+.create .checky {
+  margin-left: 2%;
+}
+
+.myhouses {
+  width: 42%;
+  margin-top: 120px;
+  margin-left: 13.4%;
+}
+.myhouses .houseCard {
+  position: relative;
+}
+.houseCard .description{
+    position: absolute;
+    width:40%;
+    height: 200px;
+    right: 15%;
+    top:22.5%;
+    overflow-y:auto;
+    overflow-wrap: break-word;
+}
+.myhouses .Accepted {
+  color: green;
+}
+.myhouses .Regected {
+  color: red;
+}
+.myhouses .Pending {
+  color: darkblue;
+}

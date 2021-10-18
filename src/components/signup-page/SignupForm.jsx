@@ -1,3 +1,4 @@
+import './signup.css';
 import React, { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,6 +8,27 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { styled } from "@mui/material/styles";
+
+const ValidationTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "darkblue",
+    },
+    "&:hover fieldset": {
+      borderColor: "darkblue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "blue",
+    },
+  },
+});
+
+
+
+
+
+
 
 export default function LoginForm() {
   const context = useContext(userContext);
@@ -51,75 +73,82 @@ export default function LoginForm() {
     setRole(e.target.value);
   };
 
+
+
+
+
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={(e) => {
-        handleSubmit(e);
-      }}
-    >
-      <TextField
-        required
-        id="standard-required"
-        label="Email"
-        placeholder="Email"
-        variant="standard"
-        onChange={(e) => {
-          onEmailChange(e);
+    <div className='signup'>
+      <div className="title">Sign Up</div>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "96%" },
         }}
-      />
-      <TextField
-        required
-        id="standard-password-input"
-        label="Password"
-        type="password"
-        placeholder="Password"
-        variant="standard"
-        onChange={(e) => {
-          onPasswordChange(e);
+        noValidate
+        autoComplete="off"
+        onSubmit={(e) => {
+          handleSubmit(e);
         }}
-      />
-      <TextField
-        required
-        id="standard-required"
-        label="First Name"
-        placeholder="Email"
-        variant="standard"
-        onChange={(e) => {
-          onFirstNameChange(e);
-        }}
-      />
-      <TextField
-        required
-        id="standard-required"
-        label="Last Name"
-        placeholder="Email"
-        variant="standard"
-        onChange={(e) => {
-          onLastNameChange(e);
-        }}
-      />
-      <FormControl >
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={role}
-          label="Age"
+      >
+        <ValidationTextField
+             required
+             id="standard-required"
+             label="Email"
+             placeholder="Email"
+             variant="outlined"
           onChange={(e) => {
-            onRoleChange(e);
+            onEmailChange(e);
           }}
-        >
-          <MenuItem value={"admin"}>Admin</MenuItem>
-          <MenuItem value={"seller"}>Seller</MenuItem>
-        </Select>
-      </FormControl>
-      <Button type="submit">Sign up</Button>
-    </Box>
+        />
+        <ValidationTextField
+              required
+              id="standard-password-input"
+              label="Password"
+              type="password"
+              placeholder="Password"
+              variant="outlined"
+          onChange={(e) => {
+            onPasswordChange(e);
+          }}
+        />
+        <ValidationTextField
+          required
+          id="standard-required"
+          label="First Name"
+          placeholder="First Name"
+          variant="outlined"
+          onChange={(e) => {
+            onFirstNameChange(e);
+          }}
+        />
+        <ValidationTextField
+          required
+          id="standard-required"
+          label="Last Name"
+          placeholder="Email"
+          variant="outlined"
+          onChange={(e) => {
+            onLastNameChange(e);
+          }}
+        />
+        <FormControl sx={{width:'96%',marginLeft:'2%'}}>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={role}
+            label="Age"
+            onChange={(e) => {
+              onRoleChange(e);
+            }}
+          >
+            <MenuItem value={"admin"}>Admin</MenuItem>
+            <MenuItem value={"seller"}>Seller</MenuItem>
+          </Select>
+        </FormControl>
+        <Button variant='contained' color='success' type="submit">Sign up</Button>
+      </Box>
+    </div>
   );
 }

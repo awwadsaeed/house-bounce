@@ -1,0 +1,45 @@
+.allhouses {
+  width: 42%;
+  margin-top: 120px;
+  margin-left: 13.4%;
+}
+.allhouses .houseCard {
+  position: relative;
+}
+.houseCard .description {
+  position: absolute;
+  width: 40%;
+  height: 200px;
+  right: 15%;
+  top: 22.5%;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+}
+.allhouses .Accepted {
+  color: green;
+}
+.allhouses .Regected {
+  color: red;
+}
+.allhouses .Pending {
+  color: darkblue;
+}
+.title{
+    color: #144273;
+}
+.charty {
+    border-radius: 5px;
+    position: fixed;
+    right: 10%;
+    top:69px;
+    padding-left: 2%;
+    padding-right: 2%;
+    height: 600px;
+    margin-top: 50px;
+    border: 1px solid #144273;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
+    box-sizing: border-box;
+  }
