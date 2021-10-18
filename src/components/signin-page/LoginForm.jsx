@@ -1,8 +1,27 @@
+import "./login.css";
 import React, { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { userContext } from "../../context/UserContext";
+import { styled } from "@mui/material/styles";
+
+
+const ValidationTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "darkblue",
+    },
+    "&:hover fieldset": {
+      borderColor: "darkblue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "blue",
+    },
+  },
+});
+
+
 
 export default function LoginForm() {
   const context = useContext(userContext);
@@ -23,40 +42,48 @@ export default function LoginForm() {
     setPassword(e.target.value);
   };
 
+
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={(e) => {
-        handleSubmit(e);
-      }}
-    >
-      <TextField
-        required
-        id="standard-required"
-        label="Email"
-        placeholder="Email"
-        variant="standard"
-        onChange={(e) => {
-          onEmailChange(e);
-        }}
-      />
-      <TextField
-        required
-        id="standard-password-input"
-        label="Password"
-        type="password"
-        placeholder="Password"
-        variant="standard"
-        onChange={(e) => {
-          onPasswordChange(e);
-        }}
-      />
-      <Button type="submit">Login</Button>
-    </Box>
+    <div className="loginForm">
+      <div className="title">Sign In</div>
+   
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "96%" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          <ValidationTextField
+            required
+            id="standard-required"
+            label="Email"
+            placeholder="Email"
+            variant="outlined"
+            onChange={(e) => {
+              onEmailChange(e);
+            }}
+          />
+          <ValidationTextField
+            required
+            id="standard-password-input"
+            label="Password"
+            type="password"
+            placeholder="Password"
+            variant="outlined"
+            onChange={(e) => {
+              onPasswordChange(e);
+            }}
+          />
+          <Button type="submit" color="success" variant="contained">
+            Login
+          </Button>
+        </Box>
+ 
+    </div>
   );
 }

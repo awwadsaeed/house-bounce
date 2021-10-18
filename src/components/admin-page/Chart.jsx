@@ -28,9 +28,8 @@ const HouseChart = (props) => {
 
   return (
     <>
-      <div className="header">
-        <h1 className="title">Pie Chart</h1>
-      </div>
+
+        <h1 className="title">Overall Stats</h1>
       <Pie data={data} />
     </>
   );

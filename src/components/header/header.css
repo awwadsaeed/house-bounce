@@ -1,0 +1,19 @@
+a{
+    text-decoration: none;
+    color:white;
+}
+
+.header button{
+    font-weight: bold;
+    margin: 5px
+}
+.header{
+    position: fixed;
+    z-index: 2;
+    top:0;
+    width: 100%;
+}
+.logo{
+    width: 10%;
+    height: 90px;
+}

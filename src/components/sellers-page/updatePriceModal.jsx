@@ -7,6 +7,22 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { userContext } from "../../context/UserContext";
+import { styled } from "@mui/material/styles";
+
+const ValidationTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "darkblue",
+    },
+    "&:hover fieldset": {
+      borderColor: "darkblue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "blue",
+    },
+  },
+});
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -43,10 +59,10 @@ export default function TransitionsModal(props) {
               Current Price: {props.price}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-             New Price: {newPrice} JD
+              New Price: {newPrice} JD
             </Typography>
             <br></br>
-            <TextField
+            <ValidationTextField
               type="number"
               required
               id="standard-required"
@@ -58,6 +74,9 @@ export default function TransitionsModal(props) {
               }}
             />
             <Button
+            style={{marginLeft:10, height:55}}
+              variant="outlined"
+              color="secondary"
               onClick={() => {
                 context.updatePrice(props.id, newPrice);
                 handleClose();

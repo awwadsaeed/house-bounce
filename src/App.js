@@ -1,8 +1,8 @@
-
+import'./App.css'
 import Login from './components/signin-page/LoginForm';
 import Signup from './components/signup-page/SignupForm';
 import SellerPage from './components/sellers-page/SellerPage';
-import AdminPage from './components/admin-page/AllHouses';
+import AdminPage from './components/admin-page/AdminPage';
 import Header from './components/header/Header';
 import { useContext } from 'react';
 import { userContext } from './context/UserContext';

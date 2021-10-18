@@ -1,7 +1,6 @@
 import React,{useContext} from 'react';
 import HouseCard from './HouseCard';
 import { userContext } from '../../context/UserContext';
-import HouseChart from './Chart';
 export default function AllHouses() {
 
     const context = useContext(userContext);
@@ -14,11 +13,6 @@ export default function AllHouses() {
                 house={house}
                />)
            })}
-           <HouseChart
-            accepted={context.chartStats.accepted}
-            regected={context.chartStats.regected}
-            pending={context.chartStats.pending}
-           />
         </>
     )
 }
