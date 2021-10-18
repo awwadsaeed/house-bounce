@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { styled } from "@mui/material/styles";
+import {NotificationContainer,NotificationManager} from 'react-notifications';
 
 const ValidationTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -149,6 +150,7 @@ export default function LoginForm() {
         </FormControl>
         <Button variant='contained' color='success' type="submit">Sign up</Button>
       </Box>
+      <NotificationContainer/>
     </div>
   );
 }

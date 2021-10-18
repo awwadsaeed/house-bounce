@@ -3,6 +3,11 @@ import superagent from "superagent";
 import base64 from "base-64";
 import jwt from "jsonwebtoken";
 import cookie from "react-cookies";
+import 'react-notifications/lib/notifications.css';
+
+import {NotificationContainer,NotificationManager} from 'react-notifications';
+
+
 
 export const userContext = createContext();
 const baseURL = process.env.REACT_APP_API;
@@ -95,7 +100,7 @@ export default function UserContext(props) {
         houses: [],
       };
       const result = await superagent.post(`${baseURL}/auth/signup`, userData);
-      console.log(result.body);
+      return NotificationManager.info('A verification email has been sent to you, please verify your email to Login');
     } catch (e) {
       console.log(e.message);
     }
