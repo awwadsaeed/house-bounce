@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import cookie from "react-cookies";
 
 export const userContext = createContext();
-const baseURL = "http://localhost:5000";
+const baseURL = process.env.REACT_APP_API;
 export default function UserContext(props) {
   const [user, setUser] = useState({
     email: "",
