@@ -16,11 +16,17 @@ export default function UserContext(props) {
   });
 
   const [loggedin, setLoggedin] = useState(false);
-
+  const [chartStats, setChartStats] = useState({
+    accepted: 0,
+    regected: 0,
+    pending: 0,
+  });
   useEffect(() => {
-    // console.log(user);
-    console.log(loggedin);
-  }, [loggedin]);
+    // console.log(user.role);
+    if (user.role == "admin") {
+      console.log(chartStats);
+    }
+  }, [chartStats]);
 
   //--- we validate token after recieving it from back end, save it in the coockies, get the houses of this user and set the user and logged in states ---//
 
@@ -29,14 +35,17 @@ export default function UserContext(props) {
       const userData = jwt.decode(token);
       if (userData) {
         cookie.save("Auth", token);
-        const houses = await getHouses(token);
+        const result = await getHouses(token);
         setUser({
           email: userData.email,
           firstName: userData.firstName,
           lastName: userData.lastName,
           role: userData.role,
-          houses: houses,
+          houses: result.houses,
         });
+        if(userData.role==='admin'){
+          setChartStats(result.stats);
+        }
         setLoggedin(true);
       }
     } catch (error) {
@@ -63,7 +72,8 @@ export default function UserContext(props) {
       const result = await superagent
         .get(`${baseURL}/req/read`)
         .set("authorization", `Bearer ${token}`);
-      return result.body.houses;
+  
+      return result.body;
     } catch (e) {
       console.log(e.message);
     }
@@ -97,14 +107,14 @@ export default function UserContext(props) {
   ) => {
     const token = cookie.load("Auth");
     const data = {
-        type,
-        address,
-        description,
-        price,
-        negotiable,
+      type,
+      address,
+      description,
+      price,
+      negotiable,
     };
     const result = await superagent
-      .post(`${baseURL}/req/create`, data )
+      .post(`${baseURL}/req/create`, data)
       .set("authorization", `Bearer ${token}`);
     console.log(result.body);
     setUser({
@@ -115,14 +125,14 @@ export default function UserContext(props) {
       houses: result.body.houses,
     });
   };
-//----updating the price ----//
-  const updatePrice = async(houseID,price)=>{
+  //----updating the price ----//
+  const updatePrice = async (houseID, price) => {
     const token = cookie.load("Auth");
     const newPrice = `${price} JD`;
-    const data ={ houseID, newPrice }
+    const data = { houseID, newPrice };
     const result = await superagent
-    .put(`${baseURL}/req/updatePrice`, data )
-    .set("authorization", `Bearer ${token}`);
+      .put(`${baseURL}/req/updatePrice`, data)
+      .set("authorization", `Bearer ${token}`);
     setUser({
       email: user.email,
       firstName: user.firstName,
@@ -130,21 +140,18 @@ export default function UserContext(props) {
       role: user.role,
       houses: result.body.houses,
     });
-  }
-
-
+  };
 
   //----delete request----//
-  const deleteHouse = async (id,email)=>{
-  
+  const deleteHouse = async (id, email) => {
     const token = cookie.load("Auth");
     const data = {
-      houseID:id,
-      ownerEmail:email
-    }
+      houseID: id,
+      ownerEmail: email,
+    };
     const result = await superagent
-    .delete(`${baseURL}/req/delete`, data )
-    .set("authorization", `Bearer ${token}`);
+      .delete(`${baseURL}/req/delete`, data)
+      .set("authorization", `Bearer ${token}`);
     console.log(result.body);
     setUser({
       email: user.email,
@@ -153,7 +160,30 @@ export default function UserContext(props) {
       role: user.role,
       houses: result.body.houses,
     });
-  }
+    setChartStats(result.body.stats);
+  };
+
+  //----update status request ---//
+  const updateStatus = async (houseID, ownerEmail, stat) => {
+    const token = cookie.load("Auth");
+    const data = {
+      houseID,
+      ownerEmail,
+      stat,
+    };
+    const result = await superagent
+      .put(`${baseURL}/req/updateStatus`, data)
+      .set("authorization", `Bearer ${token}`);
+    setUser({
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      houses: result.body.houses,
+    });
+    setChartStats(result.body.stats);
+    console.log(result.body);
+  };
   //--- creating the context state object ---//
   const state = {
     login,
@@ -161,7 +191,9 @@ export default function UserContext(props) {
     createHouseReq,
     updatePrice,
     deleteHouse,
+    updateStatus,
     user,
+    chartStats,
   };
 
   return (

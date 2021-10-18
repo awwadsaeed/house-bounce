@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { userContext } from "../../context/UserContext";
 import UpdatePriceModal from './updatePriceModal';
+
+
 export default function HouseCard(props) {
     const context = useContext(userContext);
     const [open, setOpen] = useState(false);
