@@ -71,7 +71,7 @@ export default function UserContext(props) {
         .set("authorization", `Basic ${encodedString}`);
       validateToken(result.body.token);
     } catch (e) {
-      console.log(e.message);
+      return NotificationManager.error('invalid login check email or password');
     }
   };
 
@@ -102,7 +102,7 @@ export default function UserContext(props) {
       const result = await superagent.post(`${baseURL}/auth/signup`, userData);
       return NotificationManager.info('A verification email has been sent to you, please verify your email to Login');
     } catch (e) {
-      console.log(e.message);
+      return NotificationManager.error(e.message);
     }
   };
 

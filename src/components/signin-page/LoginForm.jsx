@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { userContext } from "../../context/UserContext";
 import { styled } from "@mui/material/styles";
-
+import {NotificationContainer,NotificationManager} from 'react-notifications';
 
 const ValidationTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -83,7 +83,7 @@ export default function LoginForm() {
             Login
           </Button>
         </Box>
- 
+        <NotificationContainer/>
     </div>
   );
 }
